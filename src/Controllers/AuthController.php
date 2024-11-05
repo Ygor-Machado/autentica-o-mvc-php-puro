@@ -13,6 +13,26 @@ class AuthController
         $this->authService = new AuthService();
     }
 
+    public function viewLogin(): void
+    {
+        $this->render('login');
+    }
+
+    public function viewRegister(): void
+    {
+        $this->render('register');
+    }
+
+    public function dashboard(): void
+    {
+        if ($this->authService->isAuthenticated()) {
+            $this->render('dashboard');
+        } else {
+            header("Location: /login");
+            exit;
+        }
+    }
+
     public function register(array $data): void
     {
         $name = $data['name'];
